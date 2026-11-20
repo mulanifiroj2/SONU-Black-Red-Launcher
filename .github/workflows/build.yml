@@ -16,8 +16,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Extract launcher ZIP
-        run: |
-          unzip -o SONU_Black_Red_TS7_Launcher_Project.zip -d .
+        run: unzip -o SONU_Black_Red_TS7_Launcher_Project.zip -d .
 
       - name: Setup Java
         uses: actions/setup-java@v4
@@ -26,12 +25,10 @@ jobs:
           java-version: '17'
 
       - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
+        uses: android-actions/setup-android@v4
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
-        with:
-          gradle-version: '8.2'
 
       - name: Build APK
         run: gradle assembleDebug
@@ -40,4 +37,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: SONU-Black-Red-Launcher
-          path: app/build/outputs/apk/debug/app-debug.apk
+          path: '**/build/outputs/apk/debug/*.apk'
+          if-no-files-found: error
